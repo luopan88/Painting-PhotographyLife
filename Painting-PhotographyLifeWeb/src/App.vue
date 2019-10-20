@@ -28,7 +28,10 @@
 			</el-col>
 		</el-row>
 		
-		<el-dialog title="登录" :visible.sync="dialogFormVisible" append-to-body>
+		<el-dialog title="登录" :visible.sync="dialogFormVisible" 
+				fullscreen="true" 
+				custom-class="dialog"
+				append-to-body>
 					  <Login></Login>
 		</el-dialog>
   </div>
@@ -54,6 +57,9 @@ export default {
 </script>
 
 <style>
+	.dialog{
+		background-color: transparent;
+	}
 	.changebut{
 		display: block;
 		margin: auto;
