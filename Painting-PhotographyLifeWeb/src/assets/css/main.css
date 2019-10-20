@@ -5,3 +5,19 @@ body{
 	background-attachment: fixed;
 	background-position: center;
 }
+
+.mybtn, .mybtn:visited{
+	background-color: rgba(36,33,46,0.32);
+	border: rgba(255,255,255,0.5) 1px solid;
+	color: #fff;
+	display: block;
+	margin: auto;
+}
+.mybtn:hover, .mybtn:active{
+	background-color: rgba(255,255,255,0.2);
+	border: rgba(255,255,255,0.8) 1px solid;
+	color: #fff;
+}
+a{
+	text-decoration: none;
+}
