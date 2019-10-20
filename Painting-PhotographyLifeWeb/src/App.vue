@@ -2,7 +2,7 @@
   <div id="app">
 	  <el-row :gutter="20" type="flex" justify="center">
 		  <transition name="el-zoom-in-center">
-			  <el-col :sm="15" :xs="titlexs(true)">
+			  <el-col :sm="15">
 				  <h1 class="title">绘影生活</h1>
 				  <p>
 					  aesf qwr gwrga 
@@ -12,53 +12,43 @@
 			  </el-col>
 		  </transition>
 		  <transition name="el-zoom-in-center">
-			  <el-col :sm="9" :xs="titlexs(false)" class="col">
-				  <el-form label-width="60px" label-position="top" class="form">
-					  <el-form-item label="账号:">
-						<el-input size="medium" class="aaa"></el-input>
-					  </el-form-item>
-					  <el-form-item label="密码:">
-						  <el-input show-password></el-input>
-					  </el-form-item>
-				  </el-form>
+			  <el-col :sm="9" :xs="0" class="col">
+				  <Login></Login>
 			  </el-col>
 		  </transition>
+		  
 	  </el-row>
 	  
 		<el-row type="flex" justify="center">
 			<el-col :sm="0" class="col">
-				<el-button class="changebut" size="medium" @click="changexs">
-					<i v-show="!changetotitle" class="el-icon-arrow-left"></i>
-					{{changebuttext}}
-					<i v-show="changetotitle" class="el-icon-arrow-right"></i>
+				<el-button class="changebut" size="medium" @click="dialogFormVisible = true">
+					登录页
+					<i class="el-icon-arrow-right"></i>
 				</el-button>
 			</el-col>
 		</el-row>
+		
+		<el-dialog title="登录" :visible.sync="dialogFormVisible" append-to-body>
+					  <Login></Login>
+		</el-dialog>
   </div>
 </template>
 
 <script>
+	import Login from './component/Login.vue'
 export default {
+	components:{
+		Login
+	},
 	data(){
 		return {
-			changetotitle: true,
-			changebuttexts: ["登录页","主页"]
+			dialogFormVisible: false
 		}
 	},
 	computed:{
-		changebuttext(){
-			return this.changetotitle ? 
-				this.changebuttexts[0] : this.changebuttexts[1]
-		}
+		
 	},methods:{
-		titlexs(x){
-			console.log(x)
-			console.log(this.changetotitle)
-			return this.changetotitle===x ? 24 : 0
-		},
-		changexs(){
-			this.changetotitle = !this.changetotitle
-		}
+		
 	}
 }
 </script>
@@ -70,15 +60,7 @@ export default {
 		margin-top: 20px;
 		
 	}
-	.form{
-		background-color: #EBEEF5;
-		max-width: 250px;
-		min-width: 150px;
-		padding: 24px;
-		border-radius: 4px;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-		margin: auto;
-	}
+
 /* 	.el-input{
 		min-width: 120px;
 	} */
