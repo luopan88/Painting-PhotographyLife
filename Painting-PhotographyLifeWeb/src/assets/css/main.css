@@ -1,0 +1,23 @@
+body{
+	background-image: url(../img/d4fab7a666bc627cc2bcb4f00aa6d2a7958cee80.png@1366w.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+}
+
+.mybtn, .mybtn:visited{
+	background-color: rgba(36,33,46,0.32);
+	border: rgba(255,255,255,0.5) 1px solid;
+	color: #fff;
+	display: block;
+	margin: auto;
+}
+.mybtn:hover, .mybtn:active{
+	background-color: rgba(255,255,255,0.2);
+	border: rgba(255,255,255,0.8) 1px solid;
+	color: #fff;
+}
+a{
+	text-decoration: none;
+}
