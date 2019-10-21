@@ -1,21 +1,13 @@
-import Vue from 'vue'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import App from './App.vue'
-import Vuex from 'vuex'
-import './assets/css/main.css'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
+import "./plugins/element.js";
 
-Vue.use(Vuex)
-Vue.use(ElementUI)
-
-const store = new Vuex.Store({
-	state: {
-		test: "test"
-	}
-})
+Vue.config.productionTip = false;
 
 new Vue({
-  el: '#app',
-  render: h => h(App),
-  store
-})
+  router,
+  store,
+  render: h => h(App)
+}).$mount("#app");
