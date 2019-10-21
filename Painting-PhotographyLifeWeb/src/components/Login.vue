@@ -1,16 +1,41 @@
 <template>
-  <el-form size="mini" label-width="60px" label-position="top" class="form">
-    <el-form-item label="账号:">
-      <el-input size="medium" class="aaa"></el-input>
+  <el-form
+    ref="form"
+    :model="form"
+    size="mini"
+    label-width="60px"
+    label-position="top"
+    class="form"
+  >
+    <el-form-item
+      label="账号:"
+      prop="username"
+      :rules="[
+        { required: true, message: '请输入邮箱地址', trigger: 'blur'},
+        { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
+      ]"
+    >
+      <el-input
+        type="email"
+        v-model="form.username"
+        placeholder="请输入登录邮箱"
+      ></el-input>
     </el-form-item>
     <el-form-item label="密码:">
-      <el-input show-password></el-input>
+      <el-input
+        v-model="form.password"
+        show-password
+        placeholder="请输入登录密码"
+      ></el-input>
     </el-form-item>
 
     <el-form-item label="验证码:">
       <el-row :gutter="20" type="flex">
         <el-col :span="12">
-          <el-input></el-input>
+          <el-input
+            v-model="form.verifycode"
+            placeholder="请输入验证码"
+          ></el-input>
         </el-col>
         <el-col :span="12">
           <el-image
@@ -18,6 +43,7 @@
             :src="imgurl"
             fit="fill"
             title="点击图片刷新"
+            @click="reflushVerifyPic"
           ></el-image>
         </el-col>
       </el-row>
@@ -32,11 +58,28 @@
 </template>
 
 <script>
+var timestamp = new Date().getTime();
 export default {
   data() {
     return {
-      imgurl: "https://static.oschina.net/uploads/img/201712/16113708_B8Hu.png"
+      // imgurl: "https://static.oschina.net/uploads/img/201712/16113708_B8Hu.png"
+      t: timestamp,
+      form: {
+        username: "",
+        password: "",
+        verifycode: ""
+      }
     };
+  },
+  computed: {
+    imgurl() {
+      return this.$store.state.api.verifyPic + "?t=" + this.t;
+    }
+  },
+  methods: {
+    reflushVerifyPic() {
+      this.t = new Date().getTime();
+    }
   }
 };
 </script>
