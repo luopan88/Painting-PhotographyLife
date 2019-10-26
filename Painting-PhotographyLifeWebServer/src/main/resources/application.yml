@@ -1,1 +1,16 @@
+logging:
+  file: ppl.log
+spring:
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/ppl
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 123456
+#  redis:
+#    host: 192.168.56.101
+#  session:
+#    store-type: none
 
+verify:
+  image:
+    verifyUrls: post/get:/login, post:/verify/email
