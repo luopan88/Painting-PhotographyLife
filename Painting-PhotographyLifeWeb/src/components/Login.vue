@@ -7,14 +7,7 @@
     label-position="top"
     class="form"
   >
-    <el-form-item
-      label="账号:"
-      prop="username"
-      :rules="[
-        { required: true, message: '请输入邮箱地址', trigger: 'blur'},
-        { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
-      ]"
-    >
+    <el-form-item label="账号:" prop="username">
       <el-input
         type="email"
         v-model="form.username"
@@ -30,26 +23,35 @@
     </el-form-item>
 
     <el-form-item label="验证码:">
-      <el-row :gutter="20" type="flex">
+      <el-row :gutter="20" type="flex" class="row">
         <el-col :span="12">
           <el-input
-            v-model="form.verifycode"
+            v-model="form.imgcode"
             placeholder="请输入验证码"
+            @focus="verifyimgisshow"
           ></el-input>
         </el-col>
-        <el-col :span="12">
-          <el-image
-            style="width: 75px; height: 29px"
-            :src="imgurl"
-            fit="fill"
-            title="点击图片刷新"
-            @click="reflushVerifyPic"
-          ></el-image>
+        <el-col :span="10">
+          <transition name="el-fade-in">
+            <el-tooltip
+              content="点击图片刷新"
+              placement="top"
+              v-show="verifyimgshow"
+            >
+              <el-image
+                style="width: 75px; height: 29px"
+                :src="imgurl"
+                fit="fill"
+                @click="reflushVerifyPicDebounce"
+                placeholder="加载中..."
+              ></el-image>
+            </el-tooltip>
+          </transition>
         </el-col>
       </el-row>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" class="but">登录</el-button>
+      <el-button type="primary" @click="login" class="but">登录</el-button>
     </el-form-item>
     <el-form-item>
       <el-button class="but">创建</el-button>
@@ -58,33 +60,61 @@
 </template>
 
 <script>
-var timestamp = new Date().getTime();
+import { debounce } from "lodash";
+// var timestamp = new Date().getTime();
 export default {
   data() {
     return {
       // imgurl: "https://static.oschina.net/uploads/img/201712/16113708_B8Hu.png"
-      t: timestamp,
+      t: "",
       form: {
         username: "",
         password: "",
-        verifycode: ""
-      }
+        imgcode: ""
+      },
+      verifyimgshow: false
     };
   },
   computed: {
     imgurl() {
+      if (this.t === "") return "";
       return this.$store.state.api.verifyPic + "?t=" + this.t;
     }
+  },
+  created: function() {
+    this.reflushVerifyPicDebounce = debounce(this.reflushVerifyPic, 200);
   },
   methods: {
     reflushVerifyPic() {
       this.t = new Date().getTime();
+    },
+    login() {
+      let that = this;
+      console.log(this.form);
+      this.$http
+        .post(this.$store.state.api.login, this.form)
+        .then(function(response) {
+          let res = response.data;
+          that.$message(res.info);
+        })
+        .catch(function(error) {
+          alert(error);
+        });
+    },
+    verifyimgisshow() {
+      if (!this.verifyimgshow) {
+        this.reflushVerifyPic();
+        this.verifyimgshow = true;
+      }
     }
   }
 };
 </script>
 
 <style>
+  .row{
+    height: 29px;
+  }
 .but {
   display: block;
   width: 100%;

@@ -9,9 +9,7 @@
 
         <el-row type="flex" justify="center">
           <el-col :xs="12" class="col">
-            <router-link to="/main">
-              <el-button class="mybtn">立即进站</el-button>
-            </router-link>
+            <el-button class="mybtn">立即进站</el-button>
           </el-col>
           <el-col :xs="12" :sm="0" class="col">
             <el-button class="mybtn" @click="dialogFormVisible = true">
@@ -63,7 +61,7 @@ export default {
   text-indent: 2rem;
 }
 .dialog {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 .changebut {
   display: block;

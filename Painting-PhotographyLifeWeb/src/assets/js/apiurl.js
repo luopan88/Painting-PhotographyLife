@@ -1,6 +1,7 @@
 export default {
-  verifyPic: "https://static.oschina.net/uploads/img/201712/16113708_B8Hu.png",
+  verifyPic: "http://127.0.0.1:8080/verify/image",
+  // verifyPic: "api/verify/image",
   emailVerify: "",
-  login: "",
-  regist: ""
+  login: "/api/login",
+  regist: "http://127.0.0.1:8080/regist"
 };
