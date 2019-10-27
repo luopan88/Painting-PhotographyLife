@@ -1,11 +1,14 @@
 package cn.adam.website.paintingphotographylifewebserver.security.filter;
 
+import cn.adam.website.paintingphotographylifewebserver.security.RequestPayloadHttpRequest;
 import cn.adam.website.paintingphotographylifewebserver.security.exception.VerifyImageCodeException;
 import cn.adam.website.paintingphotographylifewebserver.security.modle.VerifyConfigurationProperties;
 import cn.adam.website.paintingphotographylifewebserver.security.modle.VerifyImageCode;
 import cn.adam.website.paintingphotographylifewebserver.security.modle.VerifyType;
 import cn.adam.website.paintingphotographylifewebserver.security.modle.VerifyUrl;
+import cn.adam.website.paintingphotographylifewebserver.utils.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -23,12 +26,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
 
 @Slf4j
 @Component
 public class VerifyImageCodeFilter extends OncePerRequestFilter {
     private AuthenticationFailureHandler authenticationFailureHandler =
-            new SimpleUrlAuthenticationFailureHandler("/?error");
+            new SimpleUrlAuthenticationFailureHandler("/");
 
     private VerifyUrl[] verifyUrls;
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
@@ -36,6 +41,9 @@ public class VerifyImageCodeFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
             throws ServletException, IOException {
+
+        httpServletRequest = RequestPayloadHttpRequest.get(httpServletRequest);
+
         if(pathMatch(httpServletRequest)){
             try {
                 validate(httpServletRequest);
@@ -66,8 +74,8 @@ public class VerifyImageCodeFilter extends OncePerRequestFilter {
     private void validate(HttpServletRequest request) throws ServletRequestBindingException, VerifyImageCodeException {
         HttpSession session = request.getSession();
         VerifyImageCode code = (VerifyImageCode) session.getAttribute(VerifyImageCode.VERIFY_IMAGE_SESSION_KEY);
-        String imgcode =
-                ServletRequestUtils.getStringParameter(request, "imgcode");
+        String imgcode = ServletRequestUtils.getStringParameter(request, "imgcode");
+
         if(StringUtils.isBlank(imgcode)){
             throw new VerifyImageCodeException("验证码值不能为空");
         }

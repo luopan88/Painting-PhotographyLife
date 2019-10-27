@@ -36,9 +36,9 @@ public class VerifyConfigurationProperties {
             int len = split.length;
             methods = new HttpMethod[len];
             for (int k = 0; k < len; k++) {
-                System.out.println(split[k]);
+//                System.out.println(split[k]);
                 methods[k] = HttpMethod.resolve(split[k].toUpperCase());
-                System.out.println(HttpMethod.resolve(split[k]));
+                System.out.println(HttpMethod.resolve(split[k].toUpperCase()));
             }
             VerifyUrl verifyUrl = new VerifyUrl();
             verifyUrl.setUri(uri);
