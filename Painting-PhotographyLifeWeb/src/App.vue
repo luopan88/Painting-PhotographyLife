@@ -12,4 +12,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#app {
+  background-color: transparent;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 1020px;
+  font-family: "Microsoft YaHei", "Microsoft Sans Serif", "Microsoft SanSerf",
+    "\5FAE\8F6F\96C5\9ED1";
+}
+</style>

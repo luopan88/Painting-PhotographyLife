@@ -25,12 +25,10 @@
     </el-row>
 
     <el-dialog
-      title="登录"
       :visible.sync="dialogFormVisible"
-      :fullscreen="true"
-      custom-class="dialog"
-      :center="true"
-      :roundButton="true"
+      fullscreen
+      custom-class="transparent"
+      center
       append-to-body
     >
       <Login></Login>
@@ -53,15 +51,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .titlecontext {
   font-size: 20px;
   font-weight: 400;
   color: hsla(0, 0%, 100%, 0.6);
   text-indent: 2rem;
-}
-.dialog {
-  background-color: transparent !important;
 }
 .changebut {
   display: block;
@@ -77,16 +72,5 @@ export default {
   line-height: 64px;
   color: #ebeef5;
   /* font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif; */
-}
-#app {
-  background-color: transparent;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-  max-width: 1020px;
-  font-family: "Microsoft YaHei", "Microsoft Sans Serif", "Microsoft SanSerf",
-    "\5FAE\8F6F\96C5\9ED1";
 }
 </style>
