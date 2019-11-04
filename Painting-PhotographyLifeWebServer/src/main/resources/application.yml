@@ -1,1 +1,26 @@
+logging:
+  file: ppl.log
+spring:
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/ppl
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 123456
+#  redis:
+#    host: 192.168.56.101
+#  session:
+#    store-type: none
 
+  mail:
+    default-encoding: UTF-8
+    username: 1843320482@qq.com
+    password: ibjgnffoxwlzfdcf
+    host: smtp.qq.com
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+verify:
+  image:
+    verifyUrls: /login, /verify/email, [email]/regist
+    permitUrls: /, /index, /verify/image, /verify/email, /regist
