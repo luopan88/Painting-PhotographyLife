@@ -30,6 +30,7 @@
       custom-class="transparent"
       center
       append-to-body
+      destroy-on-close
     >
       <Login></Login>
     </el-dialog>

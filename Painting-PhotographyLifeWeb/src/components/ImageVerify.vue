@@ -16,12 +16,18 @@
           v-show="verifyimgshow"
         >
           <el-image
-            style="width: 75px; height: 29px"
+            class="image"
             :src="imgurl"
             fit="fill"
             @click="reflushVerifyPicDebounce"
             placeholder="加载中..."
-          ></el-image>
+          >
+            <div slot="error" 
+              class="image-slot" 
+              @click="reflushVerifyPicDebounce">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-image>
         </el-tooltip>
       </transition>
     </el-col>
@@ -31,7 +37,7 @@
 <script>
 import { debounce } from "lodash";
 export default {
-  props: ["value", "basesrc"],
+  props: ["value", "basesrc", "rand"],
   data() {
     return {
       t: "",
@@ -41,7 +47,7 @@ export default {
   computed: {
     imgurl() {
       if (this.t === "") return "";
-      return this.basesrc + "?t=" + this.t;
+      return this.basesrc + "?t=" + this.t + this.rand;
     }
   },
   created: function() {
@@ -68,9 +74,11 @@ export default {
 .row {
   height: 29px;
 }
-.but {
-  display: block;
-  width: 100%;
-  margin: 0 auto;
+.image {
+  width: 75px;
+  height: 29px;
+  border-radius: 4px;
+  background-color: rgba(235,238,245,.8);
+  text-align: center;
 }
 </style>
