@@ -11,6 +11,16 @@ spring:
 #  session:
 #    store-type: none
 
+  mail:
+    default-encoding: UTF-8
+    username: 1843320482@qq.com
+    password: ibjgnffoxwlzfdcf
+    host: smtp.qq.com
+  jpa:
+    hibernate:
+      ddl-auto: update
+
 verify:
   image:
-    verifyUrls: post/get:/login, post:/verify/email
+    verifyUrls: /login, /verify/email, [email]/regist
+    permitUrls: /, /index, /verify/image, /verify/email, /regist

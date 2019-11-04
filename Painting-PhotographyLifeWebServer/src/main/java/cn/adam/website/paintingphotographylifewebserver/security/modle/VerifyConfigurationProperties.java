@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Data
 public class VerifyConfigurationProperties {
     private VerifyUrl[] verifyUrls;
+    private String[] permitUrls;
 
     public void setVerifyUrls(String[] verifyUrls) {
         this.verifyUrls = getVerifyUrlsFromStr(verifyUrls);
@@ -31,6 +32,7 @@ public class VerifyConfigurationProperties {
             if (j > -1){
                 ms = v.substring(i+1, j);
             }
+            j = j > i ? j : i;
             uri = v.substring(j+1);
             String[] split = ms.split("/");
             int len = split.length;
@@ -38,7 +40,7 @@ public class VerifyConfigurationProperties {
             for (int k = 0; k < len; k++) {
 //                System.out.println(split[k]);
                 methods[k] = HttpMethod.resolve(split[k].toUpperCase());
-                System.out.println(HttpMethod.resolve(split[k].toUpperCase()));
+//                System.out.println(HttpMethod.resolve(split[k].toUpperCase()));
             }
             VerifyUrl verifyUrl = new VerifyUrl();
             verifyUrl.setUri(uri);
