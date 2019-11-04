@@ -21,3 +21,15 @@ body{
 a{
 	text-decoration: none;
 }
+.transparent{
+  background-color: transparent !important;
+}
+.center-center{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.notify{
+  background-color: rgba(255,255,255,.8);
+}
