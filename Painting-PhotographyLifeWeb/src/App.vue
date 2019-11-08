@@ -1,27 +1,41 @@
 <template>
   <div id="app">
     <transition name="el-fade-in" mode="out-in">
+      <TopMenu v-if="!index"></TopMenu>
+    </transition>
+    <transition name="el-fade-in" mode="out-in">
       <router-view></router-view>
     </transition>
   </div>
 </template>
 
 <script>
+import TopMenu from "./components/TopMenu.vue"
 export default {
-  name: "app"
+  name: "app",
+  components:{
+    TopMenu
+  },
+  data(){
+    return {
+      index: true
+    }
+  },
+  watch:{
+    $route: {
+      handler: function(to){
+        if (to.path !== "/" && to.path !== "/index") {
+          this.index = false;
+        } else if (to.path === "/" || to.path === "/index") {
+          this.index = true;
+        }
+      },
+      // 深度观察监听
+      deep: true
+    }
+  }
 };
 </script>
 
 <style>
-#app {
-  background-color: transparent;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  max-width: 1020px;
-  font-family: "Microsoft YaHei", "Microsoft Sans Serif", "Microsoft SanSerf",
-    "\5FAE\8F6F\96C5\9ED1";
-}
 </style>

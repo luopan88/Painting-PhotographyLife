@@ -3,5 +3,6 @@ export default {
   // verifyPic: "api/verify/image",
   emailVerify: "/api/verify/email",
   login: "/api/login",
-  regist: "/api/regist"
+  regist: "/api/regist",
+  userIsExist: "/api/user/exist/"
 };

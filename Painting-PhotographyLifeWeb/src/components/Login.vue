@@ -12,6 +12,7 @@
         key="lform"
         :rules="formRules"
         hide-required-asterisk
+        status-icon
       >
         <el-form-item label="账号:" prop="username">
           <el-input
@@ -69,6 +70,7 @@
         v-else
         key="rform"
         hide-required-asterisk
+        status-icon
       >
         <el-form-item label="昵称:" prop="name">
           <el-input
@@ -82,6 +84,7 @@
             type="email"
             v-model="regform.username"
             placeholder="请输入邮箱地址"
+            autocomplete="off"
           ></el-input>
         </el-form-item>
         <el-form-item label="密码:" prop="password">
@@ -89,6 +92,7 @@
             v-model="regform.password"
             show-password
             placeholder="请输入登录密码"
+            autocomplete="new-password"
           ></el-input>
         </el-form-item>
 
@@ -137,6 +141,21 @@ export default {
     EmailCodeGet
   },
   data() {
+    var userIsExist = (rule, value, callback) => {
+      this.$http
+        .get(this.$store.state.api.userIsExist + this.regform.username)
+        .then(res => {
+          let mes = res.data;
+          if (mes.status === 1) {
+            callback(new Error("用户已存在"));
+          } else {
+            callback();
+          }
+        })
+        .catch(() => {
+          callback(new Error("从服务器验证用户名失败时出错"));
+        });
+    };
     return {
       r: "",
       verifyimageurl: this.$store.state.api.verifyPic,
@@ -173,7 +192,8 @@ export default {
             type: "email",
             message: "请输入正确的邮箱地址",
             trigger: "blur"
-          }
+          },
+          { validator: userIsExist, trigger: "blur" }
         ],
         password: [
           { required: true, message: "请输入登陆密码", trigger: "blur" }
@@ -198,6 +218,7 @@ export default {
       util.http(that, this.$store.state.api.login, this.form, () => {
         that.r = new Date().getTime();
         that.ldisabled = false;
+        that.form.imgcode = "";
       });
     },
     regist() {
@@ -205,6 +226,7 @@ export default {
       let that = this;
       util.http(this, this.$store.state.api.regist, this.regform, () => {
         that.rdisabled = false;
+        that.regform.emailcode = "";
       });
     }
   }

@@ -107,6 +107,7 @@ export default {
         },
         () => {
           that.dialogVisible = false;
+          that.form.imgcode = "";
         }
       );
     }

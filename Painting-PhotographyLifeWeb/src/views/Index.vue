@@ -1,5 +1,5 @@
 <template>
-  <div id="index">
+  <div class="center-center index">
     <el-row :gutter="20" type="flex" justify="center" align="middle">
       <el-col :sm="15">
         <h1 class="title">绘影生活</h1>
@@ -9,7 +9,7 @@
 
         <el-row type="flex" justify="center">
           <el-col :xs="12" class="col">
-            <el-button class="mybtn">立即进站</el-button>
+            <el-button class="mybtn" @click="goHome">立即进站</el-button>
           </el-col>
           <el-col :xs="12" :sm="0" class="col">
             <el-button class="mybtn" @click="dialogFormVisible = true">
@@ -48,6 +48,11 @@ export default {
     return {
       dialogFormVisible: false
     };
+  },
+  methods:{
+    goHome(){
+      this.$router.push("/main");
+    }
   }
 };
 </script>
@@ -73,5 +78,10 @@ export default {
   line-height: 64px;
   color: #ebeef5;
   /* font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif; */
+}
+.index{
+    background-color: transparent;
+    width: 80%;
+    max-width: 1020px;
 }
 </style>
